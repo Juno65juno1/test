@@ -1,6 +1,6 @@
 {
     "name": "viidesign",
-    "version": "0.1.0",
+    "version": "0.1.3",
     "description": "React components library",
     "author": "vv65",
     "private": false,
@@ -13,6 +13,11 @@
         "UI",
         "React"
     ],
+    "homepage": "https://github.com/Juno65juno1/test",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Juno65juno1/test"
+    },
     "files": [
         "dist"
     ],
@@ -21,45 +26,35 @@
         "@fortawesome/free-regular-svg-icons": "^6.3.0",
         "@fortawesome/free-solid-svg-icons": "^6.3.0",
         "@fortawesome/react-fontawesome": "^0.2.0",
-        "@storybook/addon-docs": "^6.5.16",
-        "@testing-library/jest-dom": "^5.16.5",
-        "@testing-library/react": "^13.4.0",
-        "@testing-library/user-event": "^13.5.0",
-        "@types/classnames": "^2.3.1",
-        "@types/jest": "^27.5.2",
-        "@types/node": "^16.18.12",
-        "@types/react": "^18.0.27",
-        "@types/react-dom": "^18.0.10",
-        "@types/react-transition-group": "^4.4.5",
         "axios": "^1.3.4",
         "classnames": "^2.3.2",
         "eslint-plugin-react": "^7.32.2",
-        "node-sass": "^8.0.0",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-scripts": "5.0.1",
         "react-textarea-autosize": "^8.4.0",
-        "react-transition-group": "^4.4.5",
-        "sass": "^1.58.0",
-        "typescript": "^4.9.5",
-        "web-vitals": "^2.1.4"
+        "react-transition-group": "^4.4.5"
+    },
+    "peerDependencies": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
     },
     "scripts": {
         "start": "react-scripts start",
         "clean": "rimraf ./dist",
+        "lint": "eslint --ext js,ts,tsx src",
         "build": "npm run clean && npm run build-ts && npm run build-css",
+        "test": "react-scripts test",
+        "test:nowatch": "cross-env CI=true react-scripts test",
         "eject": "react-scripts eject",
         "build-ts": "tsc -p tsconfig.build.json",
         "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
         "prettier": "prettier --write",
-        "test": "react-scripts test",
         "storybook": "start-storybook -p 6006 -s public",
         "build-storybook": "build-storybook -s public",
-        "prepublish": "npm run build"
+        "prepublish": "npm run test:nowatch && npm run lint && npm run build"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.18.6",
         "@storybook/addon-actions": "^6.5.16",
+        "@storybook/addon-docs": "^6.5.16",
         "@storybook/addon-essentials": "^6.5.16",
         "@storybook/addon-interactions": "^6.5.16",
         "@storybook/addon-links": "^6.5.16",
@@ -69,20 +64,42 @@
         "@storybook/preset-create-react-app": "^4.1.2",
         "@storybook/react": "^6.5.16",
         "@storybook/testing-library": "^0.0.13",
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "@types/classnames": "^2.3.1",
+        "@types/jest": "^27.5.2",
+        "@types/node": "^16.18.12",
+        "@types/react": "^18.0.27",
+        "@types/react-dom": "^18.0.10",
+        "@types/react-transition-group": "^4.4.5",
         "@typescript-eslint/eslint-plugin": "^5.51.0",
         "@typescript-eslint/parser": "^5.51.0",
         "babel-plugin-named-exports-order": "^0.0.2",
+        "cross-env": "^7.0.3",
         "eslint": "^8.33.0",
         "eslint-config-prettier": "^8.6.0",
         "eslint-plugin-prettier": "^4.2.1",
+        "husky": "^8.0.3",
         "jest": "^27.5.1",
+        "node-sass": "^8.0.0",
         "prettier": "^2.8.4",
         "prop-types": "^15.8.1",
+        "react": "^18.2.0",
         "react-docgen-typescript-loader": "^3.7.2",
+        "react-dom": "^18.2.0",
+        "react-scripts": "5.0.1",
         "rimraf": "^4.4.0",
+        "sass": "^1.58.0",
+        "typescript": "^4.9.5",
+        "web-vitals": "^2.1.4",
         "webpack": "^5.75.0"
     },
     "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ],
         "overrides": [
             {
                 "files": [
@@ -93,5 +110,10 @@
                 }
             }
         ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run test:nowatch &&npm run lint"
+        }
     }
 }
