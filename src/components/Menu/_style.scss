@@ -1,0 +1,147 @@
+// 清除浏览器默认样式
+* {
+    padding: 0;
+    margin: 0;
+}
+
+// 默认横向
+.vii-menu {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 30px;
+    list-style: none;
+    border-bottom: $menu-border-width solid $menu-border-color;
+    > .menu-item {
+        padding: $menu-item-padding-y $menu-item-padding-x;
+        cursor: pointer;
+        transition: $menu-transition;
+        &:hover,
+        &:focus {
+            text-decoration: none;
+            border-bottom: $menu-item-active-border-width solid
+                $menu-item-active-color;
+            transition: $menu-transition;
+        }
+        &.is-disabled {
+            color: $menu-item-disabled-color;
+            pointer-events: none;
+            cursor: default;
+        }
+        &.is-active {
+            color: $menu-item-active-color;
+            border-bottom: $menu-item-active-border-width solid
+                $menu-item-active-color;
+            transition: $menu-transition;
+        }
+    }
+
+    // 跟menuitem是同一级
+    .submenu-item {
+        // background-color: aquamarine;
+        position: relative;
+        .submenu-title {
+            display: flex;
+            align-items: center;
+        }
+        .arrow-icon {
+            margin-left: 3px;
+        }
+        &:hover {
+            .arrow-icon {
+                transform: rotate(180deg);
+                transition: $menu-transition;
+            }
+        }
+    }
+
+    .is-vertical {
+        .arrow-icon {
+            transform: rotate(0deg) !important;
+        }
+    }
+
+    // 下拉菜单
+    .vii-submenu {
+        //透明的下拉菜单，占位
+        // background-color: rgb(230, 195, 56);
+        // display: none; //下拉菜单默认隐藏
+        /* :hover {
+            display: block;
+        } */
+        position: absolute;
+        left: 0;
+        top: 42px; //4px的间隙
+        > div {
+            //真正的下拉菜单
+            // background-color: antiquewhite;
+            margin-top: 4px;
+            padding: 1px 0 1px 0;
+            border-radius: $border-radius;
+            box-shadow: $submenu-box-shadow;
+            list-style: none;
+            padding-left: 0;
+            white-space: nowrap;
+            // 下拉菜单里面的小item
+            .menu-item {
+                // background-color: pink;
+                padding: $menu-item-padding-y $menu-item-padding-x;
+                cursor: pointer;
+                margin: 4px;
+                transition: $menu-transition;
+                color: $body-color;
+                &.is-active,
+                &:hover {
+                    // color: $menu-item-active-color;
+                    border-radius: $border-radius;
+                    background-color: $submenu-item-hover-background-color;
+                    transition: $menu-transition;
+                }
+                &.is-active {
+                    color: $submenu-item-active-color;
+                    background-color: $submenu-item-active-background-color;
+                }
+            }
+        }
+    }
+    .menu-open {
+        display: block;
+    }
+    /*     .submenu-item:hover .vii-submenu {
+        display: block;
+    } */
+}
+
+// ===============================================================
+// 纵向
+.menu-vertical {
+    flex-direction: column;
+    width: 150px;
+    border-bottom: 0;
+    border-right: $menu-border-width solid $menu-border-color;
+    > .menu-item {
+        border-left: $menu-item-active-border-width solid transparent;
+        &.is-active,
+        &:hover {
+            border-bottom: 0;
+            border-left: $menu-item-active-border-width solid
+                $menu-item-active-color;
+        }
+    }
+
+    .vii-submenu {
+        //透明的下拉菜单，占位
+        left: 148px;
+        top: -4px;
+        > div {
+            //真正的下拉菜单
+            margin-left: 4px;
+            .menu-item {
+                &.is-active,
+                &:hover {
+                    border-left: 0;
+                }
+            }
+        }
+    }
+}
